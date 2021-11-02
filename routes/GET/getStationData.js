@@ -1,7 +1,7 @@
-const getMaterials = require("express").Router();
-const materials = require("../../models/material");
-getMaterials.get("/get-materials", (req,res) => {
-    materials.find({}, (err,docs) => {
+const getStationData = require("express").Router();
+const modelStationData = require("../../models/stationData");
+getStationData.get("/get-station-data", (req,res) => {
+    modelStationData.find({}, (err,docs) => {
         if(err){
             return res.json({
                 msg: "Bohužel se nepodařilo získat žádné suroviny",
@@ -16,4 +16,4 @@ getMaterials.get("/get-materials", (req,res) => {
     });
 });
 
-module.exports = getMaterials;
+module.exports = getStationData;

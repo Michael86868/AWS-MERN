@@ -3,8 +3,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const db = require("./database/connect");
 const cors = require("cors");
-const getMaterials = require("./routes/GET/getMaterials");
-const setMaterial = require("./routes/POST/setMaterial");
+const getStationData = require("./routes/GET/getStationData");
+const setStationData = require("./routes/POST/setStationData");
 db.connect();
 
 /**
@@ -16,11 +16,11 @@ db.connect();
 /**
  * Routes - GET
  */
-app.use("/", cors(), getMaterials);
+app.use("/", cors(), getStationData);
 /**
  * Routes - POST
  */
-app.use("/", setMaterial);
+app.use("/", setStationData);
 
 
 
