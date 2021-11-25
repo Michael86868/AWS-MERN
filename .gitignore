@@ -1,2 +1,6 @@
-node_modules
-.env
+API/node_modules
+API/.env
+API/package-lock.json
+
+client/node_modules
+client/package-lock.json

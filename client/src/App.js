@@ -1,9 +1,10 @@
 import './App.css';
 import React from 'react'
-import Main from "./pages/Main";
-import AddMaterial from './pages/AddMaterial';
+import Main from "./Page/Main";
+import AddMaterial from './Page/AddMaterial';
 import {BrowserRouter,Switch,Route} from "react-router-dom";
-import Menu from './components/Menu';
+import Menu from './Component/Menu';
+import Footer from './Component/Footer';
 
 const App = () => {
   return (
@@ -13,8 +14,9 @@ const App = () => {
         <Route exact path="/" component={Main} />
         <Route exact path="/add-material" component={AddMaterial} />
       </Switch>
+      <Footer/>
     </BrowserRouter>
   )
 }
 
-export default App
+export default App;

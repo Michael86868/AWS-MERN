@@ -3,7 +3,7 @@ import React,{useState} from 'react'
 const AddMaterial = () => {
     const [input,setinput] = useState("");
     const insertDB = () => {
-        fetch("http://localhost:5000/set-material",{
+        fetch("http://localhost:5000/api/station-data",{
         method:"post",
         headers:{
             "Accept":"application/json",
