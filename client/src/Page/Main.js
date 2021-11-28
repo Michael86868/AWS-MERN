@@ -61,7 +61,7 @@ const Main = () => {
                         <Card.Body className="p-4 shadow-sm border-1">
                             <Row className="d-flex justify-content-center pt-3 pb-2">
                                 <b>
-                                    Poslední synchronizace se serverem: <span className="ms-3" style={{fontSize: "1.2rem"}}><Moment date={stationdata.dataCreated} format="HH:mm:ss DD.MM.YYYY" /></span>
+                                    <span className="me-5 me-sm-3">Poslední synchronizace se serverem: </span><span className="float-start float-md-none" style={{fontSize: "1.2rem"}}><Moment date={stationdata.dataCreated} format="HH:mm:ss DD.MM.YYYY" /></span>
                                     <span style={{cursor:"pointer"}}className="float-end" onClick={() => AddStationData()}>
                                         <Icons icon="Synchronizace"/>
                                     </span>
