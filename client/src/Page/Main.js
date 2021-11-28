@@ -9,8 +9,6 @@ import TemperatureChart from '../Component/TemperatureChart';
 const Main = () => {
     const [stationdata, setstationdata] = useState([]);
     const [serverMessage, setserverMessage] = useState("");
-    const [sunrise, setsunrise] = useState("");
-    const [sunset, setsunset] = useState("");
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -18,14 +16,12 @@ const Main = () => {
     }, [])
 
     const AddStationData = async () => {
-        const data = await fetch("http://localhost:5000/api/station-data/:-1");
+        const data = await fetch("http://192.168.0.186:5000/api/station-data/-1");
         const finalData = await data.json();
-        const {sunset,sunrise,document} = finalData;
+        const {document} = finalData;
         //document.dataCreated = new Date(document.dataCreated)-3600000;
         document.dataCreated = new Date();
         setstationdata(document);
-        setsunrise(sunrise);
-        setsunset(sunset);
         setserverMessage("Data byly úspěšně načteny ze serveru.");
         setShow(true);
     }
@@ -58,8 +54,8 @@ const Main = () => {
                 <StationData title="Nadmořská výšky" data={parseFloat(stationdata.bmeAltitude).toFixed(2)} unit="m.n.m."/>
                 <StationData title="Rychlost větru" data="Nedoplněné" unit=""/>
                 <StationData title="UV Index" data="Nedoplněné" unit=""/>
-                <StationData title="Východ slunce" data={sunrise} unit=""/>
-                <StationData title="Západ slunce" data={sunset} unit=""/>
+                <StationData title="Východ slunce" data={stationdata.sunrise} unit=""/>
+                <StationData title="Západ slunce" data={stationdata.sunset} unit=""/>
                 <Col lg={12} className="mb-4">
                     <Card className="h-100">
                         <Card.Body className="p-4 shadow-sm border-1">
