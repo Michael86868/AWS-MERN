@@ -19,8 +19,8 @@ const Main = () => {
         const data = await fetch("http://192.168.0.186:5000/api/station-data/-1");
         const finalData = await data.json();
         const {document} = finalData;
-        //document.dataCreated = new Date(document.dataCreated)-3600000;
-        document.dataCreated = new Date();
+        document.dataCreated = new Date(document.dataCreated)-3600000;
+        //document.dataCreated = new Date();
         setstationdata(document);
         setserverMessage("Data byly úspěšně načteny ze serveru.");
         setShow(true);
