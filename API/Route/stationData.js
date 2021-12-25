@@ -1,5 +1,5 @@
 module.exports = app => {
-    const stationData = require('../Controller/StationData.js')
+    const stationData = require('../Controller/stationData.js')
     const router = require('express').Router();
 
     router.post('/', stationData.create);
