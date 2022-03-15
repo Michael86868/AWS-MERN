@@ -4,25 +4,33 @@ import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
 import Moment from 'react-moment';
 import Icons from '../Component/Icons';
 import TemperatureChart from '../Component/TemperatureChart';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
+const MySwal = withReactContent(Swal)
 
 const Main = () => {
-    const [stationdata, setstationdata] = useState([]);
-    const [serverMessage, setserverMessage] = useState("");
+    const [stationData, setStationData] = useState([]);
+    const [serverMessage, setServerMessage] = useState("");
     const [show, setShow] = useState(false);
 
     useEffect(() => {
         AddStationData();
     }, [])
-
+    
     const AddStationData = async () => {
-        const data = await fetch("http://192.168.0.186:5000/api/station-data/-1");
+       
+        const data = await fetch("http://192.168.0.186:5000/api/station-data/-1", {});
+        
+        if(!data.ok) await MySwal.fire({ title: <strong>Data se nepodařilo načíst.</strong>, icon: 'error', showCloseButton: true})
+
         const finalData = await data.json();
         const {document} = finalData;
         document.dataCreated = new Date(document.dataCreated)-3600000;
         //document.dataCreated = new Date();
-        setstationdata(document);
-        setserverMessage("Data byly úspěšně načteny ze serveru.");
+        setStationData(document);
+        setServerMessage("Data byly úspěšně načteny ze serveru.");
+
         setShow(true);
     }
 
@@ -48,20 +56,20 @@ const Main = () => {
                         </Card.Body>
                     </Card>
                 </Col>
-                <StationData title="Teplota" data={parseFloat(stationdata.bmeTemperature).toFixed(2)} unit="°C"/>
-                <StationData title="Vlhkost vzduchu" data={parseFloat(stationdata.bmeHumidity).toFixed(2)} unit="%"/>
-                <StationData title="Atmosférický tlak" data={parseFloat(stationdata.bmePressure).toFixed(2)} unit="hPa"/>
-                <StationData title="Nadmořská výšky" data={parseFloat(stationdata.bmeAltitude).toFixed(2)} unit="m.n.m."/>
+                <StationData title="Teplota" data={parseFloat(stationData.bmeTemperature).toFixed(2)} unit="°C"/>
+                <StationData title="Vlhkost vzduchu" data={parseFloat(stationData.bmeHumidity).toFixed(2)} unit="%"/>
+                <StationData title="Atmosférický tlak" data={parseFloat(stationData.bmePressure).toFixed(2)} unit="hPa"/>
+                <StationData title="Nadmořská výšky" data={parseFloat(stationData.bmeAltitude).toFixed(2)} unit="m.n.m."/>
                 <StationData title="Rychlost větru" data="Nedoplněné" unit=""/>
                 <StationData title="UV Index" data="Nedoplněné" unit=""/>
-                <StationData title="Východ slunce" data={stationdata.sunrise} unit=""/>
-                <StationData title="Západ slunce" data={stationdata.sunset} unit=""/>
+                <StationData title="Východ slunce" data={stationData.sunrise} unit=""/>
+                <StationData title="Západ slunce" data={stationData.sunset} unit=""/>
                 <Col lg={12} className="mb-4">
                     <Card className="h-100">
                         <Card.Body className="p-4 shadow-sm border-1">
                             <Row className="d-flex justify-content-center pt-3 pb-2">
                                 <b>
-                                    <span className="me-5 me-sm-3">Poslední synchronizace se serverem: </span><span className="float-start float-md-none" style={{fontSize: "1.2rem"}}><Moment date={stationdata.dataCreated} format="HH:mm:ss DD.MM.YYYY" /></span>
+                                    <span className="me-5 me-sm-3">Poslední synchronizace se serverem: </span><span className="float-start float-md-none" style={{fontSize: "1.2rem"}}><Moment date={stationData.dataCreated} format="HH:mm:ss DD.MM.YYYY" /></span>
                                     <span style={{cursor:"pointer"}}className="float-end" onClick={() => AddStationData()}>
                                         <Icons icon="Synchronizace"/>
                                     </span>
