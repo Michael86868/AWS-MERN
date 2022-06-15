@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import ThemeSwitch from './ThemeSwitch';
 
 const Menu = () => {
     return (
@@ -11,6 +12,7 @@ const Menu = () => {
                         <Nav.Link href="/" className="fw-bolder">HOME</Nav.Link>
                         <Nav.Link href="/api" className="fw-bolder">API</Nav.Link>
                     </Nav>
+                    <ThemeSwitch />
                 </Navbar.Collapse>
             </Container>
         </Navbar>
